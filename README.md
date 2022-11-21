@@ -33,3 +33,6 @@ A script for sending multiple emails at once! Or you could say its a email merge
 | alice | alice@example.com | https://example.com https://google.com |
 | bob   | bob@example.net   | https://example.net                    |
 | chris | chris@example.org | https://example.org                    |
+
+## License
+[MIT License](https://github.com/SodaWithoutSparkles/bulk-email-sender/blob/main/LICENSE)
