@@ -263,7 +263,7 @@ def main():
         for i, line in enumerate(f):
             if 28 < i < 31:
                 print(line, end='')
-            elif i > 28:
+            elif i > 32:
                 break
 
 
