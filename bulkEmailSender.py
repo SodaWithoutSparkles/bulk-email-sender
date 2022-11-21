@@ -117,7 +117,7 @@ def readExcelFile():
         exit(1)
     print(OK_HEAD,
           "finished parsing excel file with {} rows".format(len(df.index)))
-    return df.to_dict()
+    return df
 
 
 def sendEmail(emailObjs):
@@ -206,7 +206,8 @@ def printMail(content):
 
 
 def main():
-    to_send = readExcelFile()
+    excel = readExcelFile()
+    to_send = excel.to_dict()
     # print(to_send)
     emailObjList = []
     firstMail = True
