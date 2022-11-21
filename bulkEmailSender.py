@@ -51,7 +51,7 @@ POST = ""
 
 # use {VARIABLE} for placeholder, change fillTemplate() and the excel file accordingly
 # New lines/enter, tabs, spaces are preserved, just type it like normal email
-# Yes, there are three double-quotes before and after the string, it is intended. 
+# Yes, there are three double-quotes before and after the string, it is intended.
 # Dont change them, they will not be visible in the email
 # Please use only alphanumeric characters, a-z, A-Z, 0-9
 # unless you know what you are doing and escape them
@@ -70,6 +70,7 @@ I_UNDERSTAND_THE_RISKS_AND_WANT_TO_DISABLE_CONFIG_CHECKS = True
 
 # Disable coloured printing. Set to True if see werid printing
 DISABLE_COLOURS_AND_ANSI_ESCAPE_CODES = False
+
 # DISABLE_COLOURS_AND_ANSI_ESCAPE_CODES = True
 
 # End configs -------------------------------------------------------------------
@@ -128,6 +129,7 @@ def sendEmail(emailObjs):
     # Return number of errors
     # count num of errors
     errorCount = 0
+    errorExcelRow = []
     # setup email server
     with smtplib.SMTP(host="smtp.gmail.com", port="587") as smtp:
         try:
@@ -136,8 +138,9 @@ def sendEmail(emailObjs):
             smtp.starttls()  # establish TLS
             smtp.login(SENDER, GOOGLE_APP_PW)  # Login as user w/ cred
             print(OK_HEAD, "Connected to mail server              ")
-
-            for emailobj in emailObjs:
+            # dump pending mail
+            for i, emailobj in enumerate(emailObjs, 1):
+                # Use 1 as starting to align w/ excel
                 try:
                     print(INFO_HEAD,
                           "sending email: {}".format(emailobj['to']),
@@ -147,10 +150,12 @@ def sendEmail(emailObjs):
                 except Exception as e:
                     errorCount += 1
                     print(
-                        ERROR_HEAD, "Error when sending mail to: {}".format(
-                            emailobj['to']))
+                        ERROR_HEAD, "Error when sending mail to: {TO}".format(
+                            TO=emailobj['to']))
+                    errorExcelRow.append(i)
 
         except Exception as e:
+            # cannot connect to server
             errorCount += 1
             print(ERROR_HEAD, "Error when setup email server: \n", e)
             raise Exception(ERROR_HEAD + "Error when setup email server")
@@ -158,6 +163,10 @@ def sendEmail(emailObjs):
     if errorCount > 0:
         print(WARD_HEAD,
               "send email finished with {} error(s)".format(errorCount))
+        if len(errorExcelRow) > 0:
+            print(WARD_HEAD, "The following excel row(s) failed to be send: ")
+            print(errorExcelRow)
+            print(WARD_HEAD, "Repeat this script with only the above row(s) to try again")
         return errorCount
     else:
         print(INFO_HEAD, "send email finished with 0 error(s)")
