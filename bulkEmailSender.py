@@ -197,7 +197,7 @@ def fillTemplate(name, event, links, your_name, post):
     # replace text in template to entries in excel
     # if you add a new placeholder called {foo} in template
     # add "foo=foo, " without quotes in front of YOUR_NAME
-    # add "foo, " without quotes in front of the 'name' in 'def fillTemplate(name...)' above
+    # change the above def fillTemplate(...) line to def fillTemplate(foo, name, event, links, your_name, post):
     # then follow instructions before the "body = fillTemplate" line in main()
     out = TEMPLATE.format(YOUR_NAME=your_name,
                           LINKS=links,
@@ -237,11 +237,12 @@ def main():
     for i in range(len(to_send['to'])):
         # set items to those in excel file
         # if you add a new placeholder {foo}
-        # add foo = to_send['foo'][i]
         # add column 'foo' in excel
+        # foo = to_send['foo'][i]
         name = to_send['name'][i]
         to = to_send['to'][i]
         links = to_send['links'][i]
+        
         # attempt to allow multiple links
         links = links.replace(' ', '\n')
         # if add foo, change to: body = fillTemplate(foo, name, EVENT, links, YOUR_NAME)
