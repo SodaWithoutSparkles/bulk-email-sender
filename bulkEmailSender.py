@@ -68,7 +68,7 @@ Best regards,
 {POST}"""
 
 # Disable config check
-I_UNDERSTAND_THE_RISKS_AND_WANT_TO_DISABLE_CONFIG_CHECKS = True
+I_UNDERSTAND_THE_RISKS_AND_WANT_TO_DISABLE_CONFIG_CHECKS = False
 
 # Disable coloured printing. Set to True if see werid printing
 DISABLE_COLOURS_AND_ANSI_ESCAPE_CODES = False
