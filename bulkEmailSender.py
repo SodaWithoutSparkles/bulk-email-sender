@@ -145,7 +145,7 @@ def sendEmail(emailObjs):
                 # Use 1 as starting to align w/ excel
                 try:
                     print(INFO_HEAD,
-                          "sending email: {}".format(emailobj['to']),
+                          "sending email: {}         ".format(emailobj['to']),
                           end='\r')
                     smtp.send_message(emailobj)
                     print(OK_HEAD, "sending email: {}".format(emailobj['to']))
@@ -156,7 +156,11 @@ def sendEmail(emailObjs):
                             TO=emailobj['to']))
                     errorExcelRow.append(i)
                 # sleep randomly (between 1 to 10 secs) to try to avoid being banned/throttled
-                sleep(randint(1,10))
+                t = randint(1, 10)
+                print(INFO_HEAD,
+                      "sleeping for {} seconds...".format(t),
+                      end='\r')
+                sleep(t)
 
         except Exception as e:
             # cannot connect to server
@@ -170,7 +174,9 @@ def sendEmail(emailObjs):
         if len(errorExcelRow) > 0:
             print(WARD_HEAD, "The following excel row(s) failed to be send: ")
             print(errorExcelRow)
-            print(WARD_HEAD, "Repeat this script with only the above row(s) to try again")
+            print(
+                WARD_HEAD,
+                "Repeat this script with only the above row(s) to try again")
         return errorCount
     else:
         print(INFO_HEAD, "send email finished with 0 error(s)")
