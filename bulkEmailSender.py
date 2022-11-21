@@ -4,6 +4,8 @@ from email.mime.multipart import MIMEMultipart
 from email.utils import parseaddr
 from email.mime.text import MIMEText
 import smtplib
+from time import sleep
+from random import randint
 # need to install
 from pandas import ExcelFile
 
@@ -153,6 +155,8 @@ def sendEmail(emailObjs):
                         ERROR_HEAD, "Error when sending mail to: {TO}".format(
                             TO=emailobj['to']))
                     errorExcelRow.append(i)
+                # sleep randomly (between 1 to 10 secs) to try to avoid being banned/throttled
+                sleep(randint(1,10))
 
         except Exception as e:
             # cannot connect to server
@@ -257,7 +261,7 @@ def main():
     # print line 28 and 29
     with open(__file__) as f:
         for i, line in enumerate(f):
-            if 26 < i < 29:
+            if 28 < i < 31:
                 print(line, end='')
             elif i > 28:
                 break
