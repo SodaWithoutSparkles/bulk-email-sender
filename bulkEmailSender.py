@@ -63,7 +63,7 @@ Best regards,
 Photography Club"""
 
 # Disable config check
-I_UNDERSTAND_THE_RISKS_AND_WANT_TO_DISABLE_CONFIG_CHECKS = False
+I_UNDERSTAND_THE_RISKS_AND_WANT_TO_DISABLE_CONFIG_CHECKS = True
 
 # Disable coloured printing. Set to True if see werid printing
 DISABLE_COLOURS_AND_ANSI_ESCAPE_CODES = False
@@ -253,12 +253,12 @@ def main():
 def checkCred():
     # check sender
     if '@' not in parseaddr(SENDER)[1]:
-        raise Exception(ERROR_HEAD + "SENDER address not valid")
+        raise Exception(ERROR_HEAD + " SENDER address not valid")
     if YOUR_NAME == "":
         print(WARD_HEAD, "YOUR_NAME field is empty. ", end='')
         input("Press Enter to continue, Ctrl-C to break...")
     if EVENT == "":
-        raise Exception(ERROR_HEAD + "EVENT cannot be empty")
+        raise Exception(ERROR_HEAD + " EVENT cannot be empty")
     if GOOGLE_APP_PW == "":
         print(
             '''GOOGLE_APP_PW is empty. Create one and fill it in the config section of this code.
