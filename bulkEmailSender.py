@@ -219,6 +219,8 @@ def main():
         name = to_send['name'][i]
         to = to_send['to'][i]
         links = to_send['links'][i]
+        # attempt to allow multiple links
+        links = links.replace(' ', '\n')
         # if add foo, change to: body = fillTemplate(foo, name, EVENT, links, YOUR_NAME)
         body = fillTemplate(name, EVENT, links, YOUR_NAME)
         content = setEmail(SUBJECT, to, body)
