@@ -46,6 +46,9 @@ EXCEL_PATH = r""
 # email subject
 SUBJECT = ""
 
+# Post, such as Photography Club Chairman, CEO of ABC corp, etc
+POST = ""
+
 # use {VARIABLE} for placeholder, change fillTemplate() and the excel file accordingly
 # New lines/enter, tabs, spaces are preserved, just type it like normal email
 # Yes, there are three double-quotes before and after the string, it is intended. 
@@ -60,7 +63,7 @@ Here are photos from {EVENT}, please check attached links/files.
 
 Best regards, 
 {YOUR_NAME}
-Photography Club"""
+{POST}"""
 
 # Disable config check
 I_UNDERSTAND_THE_RISKS_AND_WANT_TO_DISABLE_CONFIG_CHECKS = True
@@ -171,7 +174,7 @@ def setEmail(subj: str, to: str, body: str):
     return content
 
 
-def fillTemplate(name, event, links, your_name):
+def fillTemplate(name, event, links, your_name, post):
     # replace text in template to entries in excel
     # if you add a new placeholder called {foo} in template
     # add "foo=foo, " without quotes in front of YOUR_NAME
@@ -180,7 +183,8 @@ def fillTemplate(name, event, links, your_name):
     out = TEMPLATE.format(YOUR_NAME=your_name,
                           LINKS=links,
                           EVENT=event,
-                          NAME=name)
+                          NAME=name,
+                          POST=post)
     return out
 
 
@@ -222,7 +226,7 @@ def main():
         # attempt to allow multiple links
         links = links.replace(' ', '\n')
         # if add foo, change to: body = fillTemplate(foo, name, EVENT, links, YOUR_NAME)
-        body = fillTemplate(name, EVENT, links, YOUR_NAME)
+        body = fillTemplate(name, EVENT, links, YOUR_NAME, POST)
         content = setEmail(SUBJECT, to, body)
         if firstMail:
             # show the first email to check
